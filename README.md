@@ -54,7 +54,10 @@ See `SETUP_GUIDE.md` for comprehensive setup instructions including:
 ### Available SQL Scripts
 - `quick_user_setup.sql` - Minimal setup for testing
 - `setup_user_with_pat.sql` - Comprehensive production setup
+- `simple_ubac_setup.sql` - User-Based Access Control (basic)
+- `create_ubac_procedures.sql` - Full UBAC implementation
 - `SETUP_GUIDE.md` - Detailed setup documentation
+- `UBAC_GUIDE.md` - User-Based Access Control guide
 
 ## Quick Start
 
@@ -322,6 +325,38 @@ curl -X POST \
 - **Key-pair Authentication**: Use RSA key pairs with JWT
 
 See `curl_examples.md` for comprehensive documentation and examples.
+
+## User-Based Access Control (UBAC)
+
+This library includes comprehensive User-Based Access Control (UBAC) implementation for fine-grained security:
+
+### UBAC Features
+- **Dynamic Access Control** - Decisions based on user identity and attributes
+- **Resource-Level Permissions** - Control access to specific procedures/tables
+- **Row-Level Security** - Filter data based on user context
+- **Comprehensive Auditing** - Track all access decisions
+- **Time-Based Access** - Temporary permissions with expiration
+
+### Quick UBAC Setup
+```sql
+-- Execute as ACCOUNTADMIN
+@simple_ubac_setup.sql
+
+-- Grant access to user
+CALL SP_GRANT_ACCESS('sf_api_user', 'PROCEDURE', 'sp_example', 'EXECUTE', NULL);
+
+-- Check user access
+CALL SP_CHECK_ACCESS('sf_api_user', 'sp_example', 'EXECUTE');
+```
+
+### UBAC-Protected Procedures
+```python
+# Python library automatically works with UBAC
+with SnowflakeClient(...) as client:
+    result = client.call_stored_procedure("SP_SECURE_EXAMPLE", ["sf_api_user"])
+```
+
+See `UBAC_GUIDE.md` for complete implementation details.
 
 ## Security
 
