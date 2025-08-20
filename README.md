@@ -28,6 +28,34 @@ pip install -e .
 pip install sf-restcalls
 ```
 
+## Setup
+
+### Snowflake User Account Setup
+
+Before using the library, you need to set up a Snowflake user account with PAT token authentication:
+
+1. **Quick Setup**: Run the provided SQL script
+   ```sql
+   -- Execute in Snowflake as ACCOUNTADMIN
+   @quick_user_setup.sql
+   ```
+
+2. **Generate PAT Token**: Create a Personal Access Token for the user
+
+3. **Configure Environment**: Set environment variables with your credentials
+
+See `SETUP_GUIDE.md` for comprehensive setup instructions including:
+- Complete user account creation
+- PAT token generation
+- Database and warehouse setup
+- Stored procedure creation
+- Testing and troubleshooting
+
+### Available SQL Scripts
+- `quick_user_setup.sql` - Minimal setup for testing
+- `setup_user_with_pat.sql` - Comprehensive production setup
+- `SETUP_GUIDE.md` - Detailed setup documentation
+
 ## Quick Start
 
 ### As a Python Library
